@@ -34,5 +34,8 @@
     "@babel/core": "^7.9.0",
     "@babel/preset-env": "^7.9.0",
     "terser": "^4.6.7"
+  },
+  "devDependencies": {
+    "fs-extra": "^9.0.0"
   }
 }
