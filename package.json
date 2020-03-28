@@ -6,7 +6,7 @@
   "description": "Add momentum to anything. It's like iScroll, except not for scrolling. Supports mouse and touch events.",
   "scripts": {
     "prebuild": "rm -rf dist && mkdir dist",
-    "build": "babel src/implosion.js --modules umd -o dist/implosion.js && uglifyjs dist/implosion.js --comments -cmo dist/implosion.min.js",
+    "build": "babel src/implosion.js --out-file dist/implosion.js && terser dist/implosion.js --compress --mangle --output dist/implosion.min.js",
     "postbuild": "cp dist/implosion.min.js docs",
     "version": "npm run build && git add dist docs -f"
   },
@@ -26,11 +26,13 @@
   "bugs": {
     "url": "https://github.com/romellem/implosion/issues"
   },
-  "devDependencies": {
-    "babel": "^5.8.23",
-    "uglify-js": "^2.4.24"
-  },
   "engines": {
     "npm": ">=2.13.0"
+  },
+  "dependencies": {
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.9.0",
+    "@babel/preset-env": "^7.9.0",
+    "terser": "^4.6.7"
   }
 }
