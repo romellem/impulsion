@@ -9,7 +9,7 @@ const bounceAcceleration = 0.11;
 window.addEventListener('touchmove', function() {});
 
 
-export default class Impetus {
+export default class Implosion {
     constructor({
         source: sourceEl = document,
         update: updateCallback,
@@ -70,7 +70,7 @@ export default class Impetus {
 
         /**
          * In edge cases where you may need to
-         * reinstanciate Impetus on the same sourceEl
+         * reinstanciate Implosion on the same sourceEl
          * this will remove the previous event listeners
          */
         this.destroy = function() {
