@@ -12,7 +12,7 @@ var bounceDeceleration = 0.04;
 var bounceAcceleration = 0.11;
 window.addEventListener('touchmove', function () {});
 
-var Impetus = function Impetus(_ref) {
+var Implosion = function Implosion(_ref) {
   var _ref$source = _ref.source,
       sourceEl = _ref$source === void 0 ? document : _ref$source,
       updateCallback = _ref.update,
@@ -26,7 +26,7 @@ var Impetus = function Impetus(_ref) {
       _ref$bounce = _ref.bounce,
       bounce = _ref$bounce === void 0 ? true : _ref$bounce;
 
-  _classCallCheck(this, Impetus);
+  _classCallCheck(this, Implosion);
 
   var boundXmin, boundXmax, boundYmin, boundYmax, pointerLastX, pointerLastY, pointerCurrentX, pointerCurrentY, pointerId, decVelX, decVelY;
   var targetX = 0;
@@ -374,7 +374,7 @@ var Impetus = function Impetus(_ref) {
   }
 };
 
-exports["default"] = Impetus;
+exports["default"] = Implosion;
 
 var requestAnimFrame = function () {
   return window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || function (callback) {
