@@ -1,15 +1,16 @@
-Impetus.js
-=========
+# Implosion.js
+
+> Fork of the excellent [impetus.js](https://github.com/chrisbateman/impetus) by Chris Bateman.
+
 Add momentum to anything. It's like iScroll, except not for scrolling. Supports mouse and touch events.
 
-Check out the demos on the [home page](http://chrisbateman.github.io/impetus).
+Check out the demos on the [home page](http://romellem.github.io/impulsion).
 
-Impetus will probably never support anything other than simple momentum. If you need scrolling or touch carousels or anything like that, this probably isn't the tool you're looking for.
+Implosion will probably never support anything other than simple momentum. If you need scrolling or touch carousels or anything like that, this probably isn't the tool you're looking for.
 
-
-### Usage ###
+### Usage
 ```javascript
-var myImpetus = new Impetus({
+var myImplosion = new Implosion({
     source: myNode,
     update: function(x, y) {
         // whatever you want to do with the values
@@ -18,10 +19,9 @@ var myImpetus = new Impetus({
 ```
 You give it an area to listen to for touch or mouse events, and it gives you the `x` and `y` values with some momentum.
 
-Impetus will register itself as an AMD module if it's available.
+Implosion will register itself as an AMD module if it's available.
 
-
-### Constructor Options ###
+### Constructor Options
 <table>
 	<thead>
 		<tr>
@@ -83,8 +83,7 @@ Impetus will register itself as an AMD module if it's available.
 	</tbody>
 </table>
 
-
-### Methods ###
+### Methods
 <table>
 	<thead>
 		<tr>
@@ -126,7 +125,5 @@ Impetus will register itself as an AMD module if it's available.
 	</tbody>
 </table>
 
-
-### Browser Support ###
+### Browser Support
 Chrome, Firefox, Safari, Opera, IE 9+, iOS, Android. Support for IE 8 can be achieved by adding a polyfill for `addEventListener`.
-

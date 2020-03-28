@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<title>Impetus.js - Add Momentum to Anything</title>
+	<title>Implosion.js - Add Momentum to Anything</title>
 	<meta name="keywords" content="JavaScript, JS, Momentum" />
 	<link href='//fonts.googleapis.com/css?family=Raleway:100' rel='stylesheet' type='text/css'>
 	<style>
@@ -162,11 +162,11 @@
 <body>
 	<header>
 		<div class="container">
-			<h1>Impetus.js</h1>
+			<h1>Implosion.js</h1>
 			<p>Add momentum to anything. It's like iScroll, except not for scrolling. Supports mouse and touch events. Less than 1.5KB gzipped.</p>
 			<div>
-				<a class="button" href="https://github.com/chrisbateman/impetus">View on GitHub</a>
-				<a class="button" href="https://unpkg.com/impetus/dist/impetus.min.js">Download</a>
+				<a class="button" href="https://github.com/romellem/implosion">View on GitHub</a>
+				<a class="button" href="https://unpkg.com/implosion/dist/implosion.min.js">Download</a>
 			</div>
 		</div>
 	</header>
@@ -178,30 +178,30 @@
 	</div>
 	<div class="info-area">
 		<div class="container">
-		    <p>Impetus is meant to be used as a part of other components &mdash; these simple demos just demonstrate the momentum. For an example of a practical implementation, take a look at <a href="http://chrisbateman.github.io/spherical/">Spherical.js</a>.</p>
+		    <p>Implosion is meant to be used as a part of other components &mdash; these simple demos just demonstrate the momentum. For an example of a practical implementation, take a look at <a href="http://romellem.github.io/spherical/">Spherical.js</a>.</p>
 	        <h2>Usage</h2>
-			<pre><code>new Impetus({
+			<pre><code>new Implosion({
     source: myNode,
     update: function(x, y) {
         // whatever you want to do with the values
     }
 });</code></pre>
-			<p>For more usage details, see the <a href="https://github.com/chrisbateman/impetus">API</a> on GitHub.</p>
+			<p>For more usage details, see the <a href="https://github.com/romellem/implosion">API</a> on GitHub.</p>
 		</div>
 	</div>
 
 	<footer>
 		<div class="container">
-			<small>Created by <a href="https://twitter.com/batemanchris">@batemanchris</a>.</small>
+			<small>Created by <a href="https://github.com/romellem">@romellem</a>.</small>
 		</div>
 	</footer>
 
-	<script src="impetus.min.js"></script>
+	<script src="implosion.min.js"></script>
 	<script>
 	var dotEl = document.getElementById('Dot');
 	var dotParent = dotEl.offsetParent;
 
-	var dotImpetus = new Impetus({
+	var dotImplosion = new Implosion({
 		source: dotEl,
 		initialValues: [dotParent.offsetWidth/2 - 25, 45],
 		boundX: [0, dotParent.offsetWidth - dotEl.offsetWidth],
@@ -212,7 +212,7 @@
 		}
 	});
 
-	new Impetus({
+	new Implosion({
 		source: '#Cube',
 		multiplier: 0.7,
 		update: function(x, y) {
@@ -221,16 +221,5 @@
 	});
 	</script>
 
-
-<script>
-var _gaq = _gaq || [];
-_gaq.push(['_setAccount', 'UA-25267401-2']);
-_gaq.push(['_trackPageview']);
-(function() {
-var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-})();
-</script>
 </body>
 </html>
