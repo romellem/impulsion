@@ -1,27 +1,30 @@
 {
-  "name": "impetus",
+  "name": "implosion",
   "version": "0.8.8",
-  "main": "dist/impetus.js",
-  "homepage": "http://chrisbateman.github.io/impetus/",
+  "main": "dist/implosion.js",
+  "homepage": "http://romellem.github.io/implosion/",
   "description": "Add momentum to anything. It's like iScroll, except not for scrolling. Supports mouse and touch events.",
   "scripts": {
     "prebuild": "rm -rf dist && mkdir dist",
-    "build": "babel src/Impetus.js --modules umd -o dist/impetus.js && uglifyjs dist/impetus.js --comments -cmo dist/impetus.min.js",
-    "postbuild": "cp dist/impetus.min.js docs",
+    "build": "babel src/implosion.js --modules umd -o dist/implosion.js && uglifyjs dist/implosion.js --comments -cmo dist/implosion.min.js",
+    "postbuild": "cp dist/implosion.min.js docs",
     "version": "npm run build && git add dist docs -f"
   },
   "keywords": [
     "momentum",
     "touch"
   ],
-  "author": "Chris Bateman",
+  "contributors": [
+    "Chris Bateman",
+    "Matt Wade"
+  ],
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git@github.com:chrisbateman/impetus.git"
+    "url": "git@github.com:romellem/implosion.git"
   },
   "bugs": {
-    "url": "https://github.com/chrisbateman/impetus/issues"
+    "url": "https://github.com/romellem/implosion/issues"
   },
   "devDependencies": {
     "babel": "^5.8.23",
