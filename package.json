@@ -6,7 +6,7 @@
   "description": "Add momentum to anything. It's like iScroll, except not for scrolling. Supports mouse and touch events.",
   "scripts": {
     "prebuild": "rm -rf dist && mkdir dist",
-    "build": "babel src/implosion.js --modules umd -o dist/implosion.js && uglifyjs dist/implosion.js --comments -cmo dist/implosion.min.js",
+    "build": "babel src/implosion.js --out-file dist/implosion.js && terser dist/implosion.js --compress --mangle --output dist/implosion.min.js",
     "postbuild": "cp dist/implosion.min.js docs",
     "version": "npm run build && git add dist docs -f"
   },
