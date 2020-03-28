@@ -8,15 +8,26 @@ Check out the demos on the [home page](http://romellem.github.io/impulsion).
 
 Implosion will probably never support anything other than simple momentum. If you need scrolling or touch carousels or anything like that, this probably isn't the tool you're looking for.
 
+## Installation
+
+```
+yarn add implosion
+# or npm install implosion
+```
+
 ### Usage
 ```javascript
-var myImplosion = new Implosion({
+import Implosion from 'implosion';
+// const Implosion = require('implosion');
+
+let myImplosion = new Implosion({
     source: myNode,
-    update: function(x, y) {
+    update(x, y) {
         // whatever you want to do with the values
     }
 });
 ```
+
 You give it an area to listen to for touch or mouse events, and it gives you the `x` and `y` values with some momentum.
 
 Implosion will register itself as an AMD module if it's available.
