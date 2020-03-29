@@ -60,6 +60,8 @@ class Implosion {
 			decVelY;
 		let targetX = 0;
 		let targetY = 0;
+		let prevTargetX = null;
+		let prevTargetY = null;
 		let stopThreshold = stopThresholdDefault * multiplier;
 		let ticking = false;
 		let pointerActive = false;
@@ -216,7 +218,9 @@ class Implosion {
 		 * Executes the update function
 		 */
 		function callUpdateCallback() {
-			updateCallback.call(sourceEl, targetX, targetY);
+			updateCallback.call(sourceEl, targetX, targetY, prevTargetX, prevTargetY);
+			prevTargetX = targetX;
+			prevTargetY = targetY;
 		}
 
 		/**
