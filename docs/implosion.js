@@ -126,6 +126,34 @@ var bounceAcceleration = 0.11; // fixes weird safari 10 bug where preventDefault
 // @see https://github.com/metafizzy/flickity/issues/457#issuecomment-254501356
 
 window.addEventListener('touchmove', function () {});
+/**
+ * @see http://www.paulirish.com/2011/requestanimationframe-for-smart-animating/
+ */
+
+var requestAnimFrame = function () {
+  return window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || function (callback) {
+    window.setTimeout(callback, 1000 / 60);
+  };
+}();
+
+function getPassiveSupported() {
+  var passiveSupported = false;
+
+  try {
+    var options = Object.defineProperty({}, 'passive', {
+      get: function get() {
+        passiveSupported = true;
+      }
+    });
+    window.addEventListener('test', null, options);
+  } catch (err) {}
+
+  getPassiveSupported = function getPassiveSupported() {
+    return passiveSupported;
+  };
+
+  return passiveSupported;
+}
 
 var Implosion = function Implosion(_ref) {
   var _ref$source = _ref.source,
@@ -610,35 +638,6 @@ var Implosion = function Implosion(_ref) {
     }
   }
 };
-/**
- * @see http://www.paulirish.com/2011/requestanimationframe-for-smart-animating/
- */
-
-
-var requestAnimFrame = function () {
-  return window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || function (callback) {
-    window.setTimeout(callback, 1000 / 60);
-  };
-}();
-
-function getPassiveSupported() {
-  var passiveSupported = false;
-
-  try {
-    var options = Object.defineProperty({}, "passive", {
-      get: function get() {
-        passiveSupported = true;
-      }
-    });
-    window.addEventListener("test", null, options);
-  } catch (err) {}
-
-  getPassiveSupported = function getPassiveSupported() {
-    return passiveSupported;
-  };
-
-  return passiveSupported;
-}
 
 module.exports = Implosion;
 },{}]},{},["a5zL"], "Implosion")
