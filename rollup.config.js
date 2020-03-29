@@ -1,7 +1,8 @@
 import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import babel from 'rollup-plugin-babel';
-import { terser } from "rollup-plugin-terser";
+import { terser } from 'rollup-plugin-terser';
+import filesize from 'rollup-plugin-filesize';
 
 const makeRollupConfig = (globalObjectName, inputFile, outputFile) => {
 	const config = {
@@ -20,8 +21,10 @@ const makeRollupConfig = (globalObjectName, inputFile, outputFile) => {
 	};
 
 	if (outputFile.includes('.min.')) {
-		config.plugins.push(terser());
+		config.plugins.push(terser({ compress: { passes: 2 } }));
 	}
+
+	config.plugins.push(filesize({ showMinifiedSize: false }));
 
 	return config;
 };
