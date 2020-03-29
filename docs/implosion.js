@@ -136,24 +136,20 @@ var requestAnimFrame = function () {
   };
 }();
 
-function getPassiveSupported() {
-  var passiveSupported = false;
+var passiveSupported = function () {
+  var _passiveSupported = false;
 
   try {
     var options = Object.defineProperty({}, 'passive', {
       get: function get() {
-        passiveSupported = true;
+        _passiveSupported = true;
       }
     });
     window.addEventListener('test', null, options);
   } catch (err) {}
 
-  getPassiveSupported = function getPassiveSupported() {
-    return passiveSupported;
-  };
-
-  return passiveSupported;
-}
+  return _passiveSupported;
+}();
 
 var Implosion = function Implosion(_ref) {
   var _ref$source = _ref.source,
@@ -174,6 +170,8 @@ var Implosion = function Implosion(_ref) {
   var boundXmin, boundXmax, boundYmin, boundYmax, pointerLastX, pointerLastY, pointerCurrentX, pointerCurrentY, pointerId, decVelX, decVelY;
   var targetX = 0;
   var targetY = 0;
+  var prevTargetX = null;
+  var prevTargetY = null;
   var stopThreshold = stopThresholdDefault * multiplier;
   var ticking = false;
   var pointerActive = false;
@@ -315,12 +313,12 @@ var Implosion = function Implosion(_ref) {
 
   function cleanUpRuntimeEvents() {
     // Remove all touch events added during 'onDown' as well.
-    document.removeEventListener('touchmove', onMove, getPassiveSupported() ? {
+    document.removeEventListener('touchmove', onMove, passiveSupported ? {
       passive: false
     } : false);
     document.removeEventListener('touchend', onUp);
     document.removeEventListener('touchcancel', stopTracking);
-    document.removeEventListener('mousemove', onMove, getPassiveSupported() ? {
+    document.removeEventListener('mousemove', onMove, passiveSupported ? {
       passive: false
     } : false);
     document.removeEventListener('mouseup', onUp);
@@ -333,12 +331,12 @@ var Implosion = function Implosion(_ref) {
   function addRuntimeEvents() {
     cleanUpRuntimeEvents(); // @see https://developers.google.com/web/updates/2017/01/scrolling-intervention
 
-    document.addEventListener('touchmove', onMove, getPassiveSupported() ? {
+    document.addEventListener('touchmove', onMove, passiveSupported ? {
       passive: false
     } : false);
     document.addEventListener('touchend', onUp);
     document.addEventListener('touchcancel', stopTracking);
-    document.addEventListener('mousemove', onMove, getPassiveSupported() ? {
+    document.addEventListener('mousemove', onMove, passiveSupported ? {
       passive: false
     } : false);
     document.addEventListener('mouseup', onUp);
@@ -349,7 +347,9 @@ var Implosion = function Implosion(_ref) {
 
 
   function callUpdateCallback() {
-    updateCallback.call(sourceEl, targetX, targetY);
+    updateCallback.call(sourceEl, targetX, targetY, prevTargetX, prevTargetY);
+    prevTargetX = targetX;
+    prevTargetY = targetY;
   }
   /**
    * Creates a custom normalized event object from touch and mouse events
