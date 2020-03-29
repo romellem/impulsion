@@ -7,7 +7,8 @@
   "scripts": {
     "prebuild": "node scripts/prebuild.js",
     "build": "parcel build src/implosion.js --out-file implosion.min.js --global Implosion && parcel build src/implosion.js --no-minify --global Implosion",
-    "postbuild": "node scripts/postbuild.js"
+    "postbuild": "node scripts/postbuild.js",
+    "prepublishOnly": "npm run build"
   },
   "keywords": [
     "momentum",
