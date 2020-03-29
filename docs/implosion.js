@@ -402,9 +402,7 @@
     }
   };
 
-  var implosion = Implosion;
-
-  return implosion;
+  return Implosion;
 
 })));
 //# sourceMappingURL=implosion.js.map
