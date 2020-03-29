@@ -6,6 +6,37 @@ const bounceAcceleration = 0.11;
 // @see https://github.com/metafizzy/flickity/issues/457#issuecomment-254501356
 window.addEventListener('touchmove', function() {});
 
+/**
+ * @see http://www.paulirish.com/2011/requestanimationframe-for-smart-animating/
+ */
+const requestAnimFrame = (function() {
+	return (
+		window.requestAnimationFrame ||
+		window.webkitRequestAnimationFrame ||
+		window.mozRequestAnimationFrame ||
+		function(callback) {
+			window.setTimeout(callback, 1000 / 60);
+		}
+	);
+})();
+
+function getPassiveSupported() {
+	let passiveSupported = false;
+
+	try {
+		let options = Object.defineProperty({}, 'passive', {
+			get: function() {
+				passiveSupported = true;
+			},
+		});
+
+		window.addEventListener('test', null, options);
+	} catch (err) {}
+
+	getPassiveSupported = () => passiveSupported;
+	return passiveSupported;
+}
+
 class Implosion {
 	constructor({
 		source: sourceEl = document,
@@ -458,37 +489,6 @@ class Implosion {
 			}
 		}
 	}
-}
-
-/**
- * @see http://www.paulirish.com/2011/requestanimationframe-for-smart-animating/
- */
-const requestAnimFrame = (function() {
-	return (
-		window.requestAnimationFrame ||
-		window.webkitRequestAnimationFrame ||
-		window.mozRequestAnimationFrame ||
-		function(callback) {
-			window.setTimeout(callback, 1000 / 60);
-		}
-	);
-})();
-
-function getPassiveSupported() {
-	let passiveSupported = false;
-
-	try {
-		let options = Object.defineProperty({}, 'passive', {
-			get: function() {
-				passiveSupported = true;
-			},
-		});
-
-		window.addEventListener('test', null, options);
-	} catch (err) {}
-
-	getPassiveSupported = () => passiveSupported;
-	return passiveSupported;
 }
 
 module.exports = Implosion;
