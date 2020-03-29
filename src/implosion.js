@@ -9,7 +9,7 @@ const bounceAcceleration = 0.11;
 window.addEventListener('touchmove', function() {});
 
 
-export default class Implosion {
+class Implosion {
     constructor({
         source: sourceEl = document,
         update: updateCallback,
@@ -487,3 +487,5 @@ function getPassiveSupported() {
     getPassiveSupported = () => passiveSupported;
     return passiveSupported;
 }
+
+module.exports = Implosion;
