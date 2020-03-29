@@ -20,22 +20,21 @@ const requestAnimFrame = (function() {
 	);
 })();
 
-function getPassiveSupported() {
-	let passiveSupported = false;
+const passiveSupported = (() => {
+	let _passiveSupported = false;
 
 	try {
 		let options = Object.defineProperty({}, 'passive', {
 			get: function() {
-				passiveSupported = true;
+				_passiveSupported = true;
 			},
 		});
 
 		window.addEventListener('test', null, options);
 	} catch (err) {}
 
-	getPassiveSupported = () => passiveSupported;
-	return passiveSupported;
-}
+	return _passiveSupported;
+})();
 
 class Implosion {
 	constructor({
@@ -192,10 +191,10 @@ class Implosion {
 		 */
 		function cleanUpRuntimeEvents() {
 			// Remove all touch events added during 'onDown' as well.
-			document.removeEventListener('touchmove', onMove, getPassiveSupported() ? { passive: false } : false);
+			document.removeEventListener('touchmove', onMove, passiveSupported ? { passive: false } : false);
 			document.removeEventListener('touchend', onUp);
 			document.removeEventListener('touchcancel', stopTracking);
-			document.removeEventListener('mousemove', onMove, getPassiveSupported() ? { passive: false } : false);
+			document.removeEventListener('mousemove', onMove, passiveSupported ? { passive: false } : false);
 			document.removeEventListener('mouseup', onUp);
 		}
 
@@ -206,10 +205,10 @@ class Implosion {
 			cleanUpRuntimeEvents();
 
 			// @see https://developers.google.com/web/updates/2017/01/scrolling-intervention
-			document.addEventListener('touchmove', onMove, getPassiveSupported() ? { passive: false } : false);
+			document.addEventListener('touchmove', onMove, passiveSupported ? { passive: false } : false);
 			document.addEventListener('touchend', onUp);
 			document.addEventListener('touchcancel', stopTracking);
-			document.addEventListener('mousemove', onMove, getPassiveSupported() ? { passive: false } : false);
+			document.addEventListener('mousemove', onMove, passiveSupported ? { passive: false } : false);
 			document.addEventListener('mouseup', onUp);
 		}
 
