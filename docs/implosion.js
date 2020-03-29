@@ -1,15 +1,130 @@
-"use strict";
+// modules are defined as an array
+// [ module function, map of requires ]
+//
+// map of requires is short require name -> numeric require
+//
+// anything defined in a previous bundle is accessed via the
+// orig method which is the require for previous bundles
+parcelRequire = (function (modules, cache, entry, globalName) {
+  // Save the require from previous bundle to this closure if any
+  var previousRequire = typeof parcelRequire === 'function' && parcelRequire;
+  var nodeRequire = typeof require === 'function' && require;
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports["default"] = void 0;
+  function newRequire(name, jumped) {
+    if (!cache[name]) {
+      if (!modules[name]) {
+        // if we cannot find the module within our internal map or
+        // cache jump to the current global require ie. the last bundle
+        // that was added to the page.
+        var currentRequire = typeof parcelRequire === 'function' && parcelRequire;
+        if (!jumped && currentRequire) {
+          return currentRequire(name, true);
+        }
 
+        // If there are other bundles on this page the require from the
+        // previous one is saved to 'previousRequire'. Repeat this as
+        // many times as there are bundles until the module is found or
+        // we exhaust the require chain.
+        if (previousRequire) {
+          return previousRequire(name, true);
+        }
+
+        // Try the node require function if it exists.
+        if (nodeRequire && typeof name === 'string') {
+          return nodeRequire(name);
+        }
+
+        var err = new Error('Cannot find module \'' + name + '\'');
+        err.code = 'MODULE_NOT_FOUND';
+        throw err;
+      }
+
+      localRequire.resolve = resolve;
+      localRequire.cache = {};
+
+      var module = cache[name] = new newRequire.Module(name);
+
+      modules[name][0].call(module.exports, localRequire, module, module.exports, this);
+    }
+
+    return cache[name].exports;
+
+    function localRequire(x){
+      return newRequire(localRequire.resolve(x));
+    }
+
+    function resolve(x){
+      return modules[name][1][x] || x;
+    }
+  }
+
+  function Module(moduleName) {
+    this.id = moduleName;
+    this.bundle = newRequire;
+    this.exports = {};
+  }
+
+  newRequire.isParcelRequire = true;
+  newRequire.Module = Module;
+  newRequire.modules = modules;
+  newRequire.cache = cache;
+  newRequire.parent = previousRequire;
+  newRequire.register = function (id, exports) {
+    modules[id] = [function (require, module) {
+      module.exports = exports;
+    }, {}];
+  };
+
+  var error;
+  for (var i = 0; i < entry.length; i++) {
+    try {
+      newRequire(entry[i]);
+    } catch (e) {
+      // Save first error but execute all entries
+      if (!error) {
+        error = e;
+      }
+    }
+  }
+
+  if (entry.length) {
+    // Expose entry point to Node, AMD or browser globals
+    // Based on https://github.com/ForbesLindesay/umd/blob/master/template.js
+    var mainExports = newRequire(entry[entry.length - 1]);
+
+    // CommonJS
+    if (typeof exports === "object" && typeof module !== "undefined") {
+      module.exports = mainExports;
+
+    // RequireJS
+    } else if (typeof define === "function" && define.amd) {
+     define(function () {
+       return mainExports;
+     });
+
+    // <script>
+    } else if (globalName) {
+      this[globalName] = mainExports;
+    }
+  }
+
+  // Override the current require with this new one
+  parcelRequire = newRequire;
+
+  if (error) {
+    // throw error from earlier, _after updating parcelRequire_
+    throw error;
+  }
+
+  return newRequire;
+})({"a5zL":[function(require,module,exports) {
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var stopThresholdDefault = 0.3;
 var bounceDeceleration = 0.04;
-var bounceAcceleration = 0.11;
+var bounceAcceleration = 0.11; // fixes weird safari 10 bug where preventDefault is prevented
+// @see https://github.com/metafizzy/flickity/issues/457#issuecomment-254501356
+
 window.addEventListener('touchmove', function () {});
 
 var Implosion = function Implosion(_ref) {
@@ -37,6 +152,9 @@ var Implosion = function Implosion(_ref) {
   var paused = false;
   var decelerating = false;
   var trackingPoints = [];
+  /**
+   * Initialize instance
+   */
 
   (function init() {
     sourceEl = typeof sourceEl === 'string' ? document.querySelector(sourceEl) : sourceEl;
@@ -59,7 +177,8 @@ var Implosion = function Implosion(_ref) {
       }
 
       callUpdateCallback();
-    }
+    } // Initialize bound values
+
 
     if (boundX) {
       boundXmin = boundX[0];
@@ -74,23 +193,50 @@ var Implosion = function Implosion(_ref) {
     sourceEl.addEventListener('touchstart', onDown);
     sourceEl.addEventListener('mousedown', onDown);
   })();
+  /**
+   * In edge cases where you may need to
+   * reinstanciate Implosion on the same sourceEl
+   * this will remove the previous event listeners
+   */
+
 
   this.destroy = function () {
     sourceEl.removeEventListener('touchstart', onDown);
     sourceEl.removeEventListener('mousedown', onDown);
-    cleanUpRuntimeEvents();
+    cleanUpRuntimeEvents(); // however it won't "destroy" a reference
+    // to instance if you'd like to do that
+    // it returns null as a convinience.
+    // ex: `instance = instance.destroy();`
+
     return null;
   };
+  /**
+   * Disable movement processing
+   * @public
+   */
+
 
   this.pause = function () {
     cleanUpRuntimeEvents();
     pointerActive = false;
     paused = true;
   };
+  /**
+   * Enable movement processing
+   * @public
+   */
+
 
   this.resume = function () {
     paused = false;
   };
+  /**
+   * Update the current x and y values
+   * @public
+   * @param {Number} x
+   * @param {Number} y
+   */
+
 
   this.setValues = function (x, y) {
     if (typeof x === 'number') {
@@ -101,23 +247,46 @@ var Implosion = function Implosion(_ref) {
       targetY = y;
     }
   };
+  /**
+   * Update the multiplier value
+   * @public
+   * @param {Number} val
+   */
+
 
   this.setMultiplier = function (val) {
     multiplier = val;
     stopThreshold = stopThresholdDefault * multiplier;
   };
+  /**
+   * Update boundX value
+   * @public
+   * @param {Number[]} boundX
+   */
+
 
   this.setBoundX = function (boundX) {
     boundXmin = boundX[0];
     boundXmax = boundX[1];
   };
+  /**
+   * Update boundY value
+   * @public
+   * @param {Number[]} boundY
+   */
+
 
   this.setBoundY = function (boundY) {
     boundYmin = boundY[0];
     boundYmax = boundY[1];
   };
+  /**
+   * Removes all events set by this instance during runtime
+   */
+
 
   function cleanUpRuntimeEvents() {
+    // Remove all touch events added during 'onDown' as well.
     document.removeEventListener('touchmove', onMove, getPassiveSupported() ? {
       passive: false
     } : false);
@@ -128,9 +297,14 @@ var Implosion = function Implosion(_ref) {
     } : false);
     document.removeEventListener('mouseup', onUp);
   }
+  /**
+   * Add all required runtime events
+   */
+
 
   function addRuntimeEvents() {
-    cleanUpRuntimeEvents();
+    cleanUpRuntimeEvents(); // @see https://developers.google.com/web/updates/2017/01/scrolling-intervention
+
     document.addEventListener('touchmove', onMove, getPassiveSupported() ? {
       passive: false
     } : false);
@@ -141,10 +315,20 @@ var Implosion = function Implosion(_ref) {
     } : false);
     document.addEventListener('mouseup', onUp);
   }
+  /**
+   * Executes the update function
+   */
+
 
   function callUpdateCallback() {
     updateCallback.call(sourceEl, targetX, targetY);
   }
+  /**
+   * Creates a custom normalized event object from touch and mouse events
+   * @param  {Event} ev
+   * @returns {Object} with x, y, and id properties
+   */
+
 
   function normalizeEvent(ev) {
     if (ev.type === 'touchmove' || ev.type === 'touchstart' || ev.type === 'touchend') {
@@ -155,6 +339,7 @@ var Implosion = function Implosion(_ref) {
         id: touch.identifier
       };
     } else {
+      // mouse events
       return {
         x: ev.clientX,
         y: ev.clientY,
@@ -162,6 +347,11 @@ var Implosion = function Implosion(_ref) {
       };
     }
   }
+  /**
+   * Initializes movement tracking
+   * @param  {Object} ev Normalized event
+   */
+
 
   function onDown(ev) {
     var event = normalizeEvent(ev);
@@ -177,6 +367,11 @@ var Implosion = function Implosion(_ref) {
       addRuntimeEvents();
     }
   }
+  /**
+   * Handles move events
+   * @param  {Object} ev Normalized event
+   */
+
 
   function onMove(ev) {
     ev.preventDefault();
@@ -189,6 +384,11 @@ var Implosion = function Implosion(_ref) {
       requestTick();
     }
   }
+  /**
+   * Handles up/end events
+   * @param {Object} ev Normalized event
+   */
+
 
   function onUp(ev) {
     var event = normalizeEvent(ev);
@@ -197,6 +397,10 @@ var Implosion = function Implosion(_ref) {
       stopTracking();
     }
   }
+  /**
+   * Stops movement tracking, starts animation
+   */
+
 
   function stopTracking() {
     pointerActive = false;
@@ -204,6 +408,12 @@ var Implosion = function Implosion(_ref) {
     startDecelAnim();
     cleanUpRuntimeEvents();
   }
+  /**
+   * Records movement for the last 100ms
+   * @param {number} x
+   * @param {number} y [description]
+   */
+
 
   function addTrackingPoint(x, y) {
     var time = Date.now();
@@ -222,6 +432,10 @@ var Implosion = function Implosion(_ref) {
       time: time
     });
   }
+  /**
+   * Calculate new values, call update function
+   */
+
 
   function updateAndRender() {
     var pointerChangeX = pointerCurrentX - pointerLastX;
@@ -248,10 +462,19 @@ var Implosion = function Implosion(_ref) {
     pointerLastY = pointerCurrentY;
     ticking = false;
   }
+  /**
+   * Returns a value from around 0.5 to 1, based on distance
+   * @param {Number} val
+   */
+
 
   function dragOutOfBoundsMultiplier(val) {
     return 0.000005 * Math.pow(val, 2) + 0.0001 * val + 0.55;
   }
+  /**
+   * prevents animating faster than current framerate
+   */
+
 
   function requestTick() {
     if (!ticking) {
@@ -260,6 +483,11 @@ var Implosion = function Implosion(_ref) {
 
     ticking = true;
   }
+  /**
+   * Determine position relative to bounds
+   * @param {Boolean} restrict Whether to restrict target to bounds
+   */
+
 
   function checkBounds(restrict) {
     var xDiff = 0;
@@ -293,6 +521,10 @@ var Implosion = function Implosion(_ref) {
       inBounds: xDiff === 0 && yDiff === 0
     };
   }
+  /**
+   * Initialize animation of values coming to a stop
+   */
+
 
   function startDecelAnim() {
     var firstPoint = trackingPoints[0];
@@ -301,7 +533,8 @@ var Implosion = function Implosion(_ref) {
     var yOffset = lastPoint.y - firstPoint.y;
     var timeOffset = lastPoint.time - firstPoint.time;
     var D = timeOffset / 15 / multiplier;
-    decVelX = xOffset / D || 0;
+    decVelX = xOffset / D || 0; // prevent NaN
+
     decVelY = yOffset / D || 0;
     var diff = checkBounds();
 
@@ -310,6 +543,10 @@ var Implosion = function Implosion(_ref) {
       requestAnimFrame(stepDecelAnim);
     }
   }
+  /**
+   * Animates values slowing down
+   */
+
 
   function stepDecelAnim() {
     if (!decelerating) {
@@ -373,8 +610,10 @@ var Implosion = function Implosion(_ref) {
     }
   }
 };
+/**
+ * @see http://www.paulirish.com/2011/requestanimationframe-for-smart-animating/
+ */
 
-exports["default"] = Implosion;
 
 var requestAnimFrame = function () {
   return window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || function (callback) {
@@ -400,3 +639,7 @@ function getPassiveSupported() {
 
   return passiveSupported;
 }
+
+module.exports = Implosion;
+},{}]},{},["a5zL"], "Implosion")
+//# sourceMappingURL=/implosion.js.map

@@ -6,7 +6,7 @@
   "description": "Add momentum to anything. It's like iScroll, except not for scrolling. Supports mouse and touch events.",
   "scripts": {
     "prebuild": "node scripts/prebuild.js",
-    "build": "parcel build src/implosion.js --global Implosion",
+    "build": "parcel build src/implosion.js --out-file implosion.min.js --global Implosion && parcel build src/implosion.js --no-minify --global Implosion",
     "postbuild": "node scripts/postbuild.js",
     "version": "npm run build && git add dist docs -f"
   },
