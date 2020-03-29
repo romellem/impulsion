@@ -6,7 +6,7 @@
   "description": "Add momentum to anything. It's like iScroll, except not for scrolling. Supports mouse and touch events.",
   "scripts": {
     "prebuild": "node scripts/prebuild.js",
-    "build": "parcel build src/implosion.js --out-file implosion.min.js --global Implosion && parcel build src/implosion.js --no-minify --global Implosion",
+    "build": "rollup -c --environment INCLUDE_DEPS,BUILD:production",
     "postbuild": "node scripts/postbuild.js",
     "prepublishOnly": "npm run build"
   },
@@ -28,9 +28,13 @@
   },
   "devDependencies": {
     "@babel/cli": "^7.8.4",
-    "@babel/core": "^7.0.0-0",
+    "@babel/core": "^7.9.0",
     "@babel/preset-env": "^7.9.0",
+    "@rollup/plugin-commonjs": "^11.0.2",
+    "@rollup/plugin-node-resolve": "^7.1.1",
     "fs-extra": "^9.0.0",
-    "parcel": "^1.12.4"
+    "rollup": "^2.3.0",
+    "rollup-plugin-babel": "^4.4.0",
+    "rollup-plugin-terser": "^5.3.0"
   }
 }
