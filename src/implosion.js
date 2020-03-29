@@ -17,7 +17,7 @@ class Implosion {
 		boundY,
 		bounce = true,
 	}) {
-		var boundXmin,
+		let boundXmin,
 			boundXmax,
 			boundYmin,
 			boundYmax,
@@ -28,14 +28,14 @@ class Implosion {
 			pointerId,
 			decVelX,
 			decVelY;
-		var targetX = 0;
-		var targetY = 0;
-		var stopThreshold = stopThresholdDefault * multiplier;
-		var ticking = false;
-		var pointerActive = false;
-		var paused = false;
-		var decelerating = false;
-		var trackingPoints = [];
+		let targetX = 0;
+		let targetY = 0;
+		let stopThreshold = stopThresholdDefault * multiplier;
+		let ticking = false;
+		let pointerActive = false;
+		let paused = false;
+		let decelerating = false;
+		let trackingPoints = [];
 
 		/**
 		 * Initialize instance
@@ -196,7 +196,7 @@ class Implosion {
 		 */
 		function normalizeEvent(ev) {
 			if (ev.type === 'touchmove' || ev.type === 'touchstart' || ev.type === 'touchend') {
-				var touch = ev.targetTouches[0] || ev.changedTouches[0];
+				let touch = ev.targetTouches[0] || ev.changedTouches[0];
 				return {
 					x: touch.clientX,
 					y: touch.clientY,
@@ -217,7 +217,7 @@ class Implosion {
 		 * @param  {Object} ev Normalized event
 		 */
 		function onDown(ev) {
-			var event = normalizeEvent(ev);
+			let event = normalizeEvent(ev);
 			if (!pointerActive && !paused) {
 				pointerActive = true;
 				decelerating = false;
@@ -238,7 +238,7 @@ class Implosion {
 		 */
 		function onMove(ev) {
 			ev.preventDefault();
-			var event = normalizeEvent(ev);
+			let event = normalizeEvent(ev);
 
 			if (pointerActive && event.id === pointerId) {
 				pointerCurrentX = event.x;
@@ -253,7 +253,7 @@ class Implosion {
 		 * @param {Object} ev Normalized event
 		 */
 		function onUp(ev) {
-			var event = normalizeEvent(ev);
+			let event = normalizeEvent(ev);
 
 			if (pointerActive && event.id === pointerId) {
 				stopTracking();
@@ -277,7 +277,7 @@ class Implosion {
 		 * @param {number} y [description]
 		 */
 		function addTrackingPoint(x, y) {
-			var time = Date.now();
+			let time = Date.now();
 			while (trackingPoints.length > 0) {
 				if (time - trackingPoints[0].time <= 100) {
 					break;
@@ -292,8 +292,8 @@ class Implosion {
 		 * Calculate new values, call update function
 		 */
 		function updateAndRender() {
-			var pointerChangeX = pointerCurrentX - pointerLastX;
-			var pointerChangeY = pointerCurrentY - pointerLastY;
+			let pointerChangeX = pointerCurrentX - pointerLastX;
+			let pointerChangeY = pointerCurrentY - pointerLastY;
 
 			targetX += pointerChangeX * multiplier;
 			targetY += pointerChangeY * multiplier;
@@ -340,8 +340,8 @@ class Implosion {
 		 * @param {Boolean} restrict Whether to restrict target to bounds
 		 */
 		function checkBounds(restrict) {
-			var xDiff = 0;
-			var yDiff = 0;
+			let xDiff = 0;
+			let yDiff = 0;
 
 			if (boundXmin !== undefined && targetX < boundXmin) {
 				xDiff = boundXmin - targetX;
@@ -375,19 +375,19 @@ class Implosion {
 		 * Initialize animation of values coming to a stop
 		 */
 		function startDecelAnim() {
-			var firstPoint = trackingPoints[0];
-			var lastPoint = trackingPoints[trackingPoints.length - 1];
+			let firstPoint = trackingPoints[0];
+			let lastPoint = trackingPoints[trackingPoints.length - 1];
 
-			var xOffset = lastPoint.x - firstPoint.x;
-			var yOffset = lastPoint.y - firstPoint.y;
-			var timeOffset = lastPoint.time - firstPoint.time;
+			let xOffset = lastPoint.x - firstPoint.x;
+			let yOffset = lastPoint.y - firstPoint.y;
+			let timeOffset = lastPoint.time - firstPoint.time;
 
-			var D = timeOffset / 15 / multiplier;
+			let D = timeOffset / 15 / multiplier;
 
 			decVelX = xOffset / D || 0; // prevent NaN
 			decVelY = yOffset / D || 0;
 
-			var diff = checkBounds();
+			let diff = checkBounds();
 
 			if (Math.abs(decVelX) > 1 || Math.abs(decVelY) > 1 || !diff.inBounds) {
 				decelerating = true;
@@ -409,7 +409,7 @@ class Implosion {
 			targetX += decVelX;
 			targetY += decVelY;
 
-			var diff = checkBounds();
+			let diff = checkBounds();
 
 			if (Math.abs(decVelX) > stopThreshold || Math.abs(decVelY) > stopThreshold || !diff.inBounds) {
 				if (bounce) {
@@ -478,7 +478,7 @@ function getPassiveSupported() {
 	let passiveSupported = false;
 
 	try {
-		var options = Object.defineProperty({}, 'passive', {
+		let options = Object.defineProperty({}, 'passive', {
 			get: function() {
 				passiveSupported = true;
 			},
