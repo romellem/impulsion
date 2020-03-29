@@ -117,10 +117,6 @@ export default class Implosion {
 
 			cleanUpRuntimeEvents();
 
-			// however it won't "destroy" a reference
-			// to instance if you'd like to do that
-			// it returns null as a convinience.
-			// ex: `instance = instance.destroy();`
 			return null;
 		};
 
