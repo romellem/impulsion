@@ -3,19 +3,6 @@ import commonjs from '@rollup/plugin-commonjs';
 import babel from 'rollup-plugin-babel';
 import { terser } from "rollup-plugin-terser";
 
-// const uglifyOptions = {
-// 	compress: {
-// 		passes: 2,
-// 	},
-// 	mangle: {
-// 		toplevel: true,
-// 		properties: {
-// 			regex: /^_/,
-// 		},
-// 	},
-// 	toplevel: true,
-// };
-
 const makeRollupConfig = (globalObjectName, inputFile, outputFile) => {
 	const config = {
 		input: inputFile,
