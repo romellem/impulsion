@@ -36,7 +36,7 @@ const passiveSupported = (() => {
 	return _passiveSupported;
 })();
 
-class Implosion {
+export default class Implosion {
 	constructor({
 		source: sourceEl = document,
 		update: updateCallback,
@@ -493,5 +493,3 @@ class Implosion {
 		}
 	}
 }
-
-module.exports = Implosion;
