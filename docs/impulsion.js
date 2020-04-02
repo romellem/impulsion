@@ -1,7 +1,7 @@
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
   typeof define === 'function' && define.amd ? define(factory) :
-  (global = global || self, global.Implosion = factory());
+  (global = global || self, global.Impulsion = factory());
 }(this, (function () { 'use strict';
 
   function _classCallCheck(instance, Constructor) {
@@ -13,7 +13,6 @@
   var stopThresholdDefault = 0.3;
   var bounceDeceleration = 0.04;
   var bounceAcceleration = 0.11;
-  window.addEventListener('touchmove', function () {});
 
   var requestAnimFrame = function () {
     return window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || function (callback) {
@@ -36,10 +35,18 @@
     return _passiveSupported;
   }();
 
-  var Implosion = function Implosion(_ref) {
+  window.addEventListener('touchmove', function () {}, passiveSupported ? {
+    passive: true
+  } : false);
+
+  var Impulsion = function Impulsion(_ref) {
     var _ref$source = _ref.source,
         sourceEl = _ref$source === void 0 ? document : _ref$source,
-        updateCallback = _ref.update,
+        updateCallbackDeprecated = _ref.update,
+        updateCallback = _ref.onUpdate,
+        startCallback = _ref.onStart,
+        startDeceleratingCallback = _ref.onStartDecelerating,
+        endDeceleratingCallback = _ref.onEndDecelerating,
         _ref$multiplier = _ref.multiplier,
         multiplier = _ref$multiplier === void 0 ? 1 : _ref$multiplier,
         _ref$friction = _ref.friction,
@@ -50,7 +57,7 @@
         _ref$bounce = _ref.bounce,
         bounce = _ref$bounce === void 0 ? true : _ref$bounce;
 
-    _classCallCheck(this, Implosion);
+    _classCallCheck(this, Impulsion);
 
     var boundXmin, boundXmax, boundYmin, boundYmax, pointerLastX, pointerLastY, pointerCurrentX, pointerCurrentY, pointerId, decVelX, decVelY;
     var targetX = 0;
@@ -69,6 +76,10 @@
 
       if (!sourceEl) {
         throw new Error('IMPETUS: source not found.');
+      }
+
+      if (!updateCallback && updateCallbackDeprecated) {
+        updateCallback = updateCallbackDeprecated;
       }
 
       if (!updateCallback) {
@@ -97,13 +108,21 @@
         boundYmax = boundY[1];
       }
 
-      sourceEl.addEventListener('touchstart', onDown);
-      sourceEl.addEventListener('mousedown', onDown);
+      sourceEl.addEventListener('touchstart', onDown, passiveSupported ? {
+        passive: true
+      } : false);
+      sourceEl.addEventListener('mousedown', onDown, passiveSupported ? {
+        passive: true
+      } : false);
     })();
 
     this.destroy = function () {
-      sourceEl.removeEventListener('touchstart', onDown);
-      sourceEl.removeEventListener('mousedown', onDown);
+      sourceEl.removeEventListener('touchstart', onDown, passiveSupported ? {
+        passive: true
+      } : false);
+      sourceEl.removeEventListener('mousedown', onDown, passiveSupported ? {
+        passive: true
+      } : false);
       cleanUpRuntimeEvents();
       return null;
     };
@@ -147,12 +166,18 @@
       document.removeEventListener('touchmove', onMove, passiveSupported ? {
         passive: false
       } : false);
-      document.removeEventListener('touchend', onUp);
-      document.removeEventListener('touchcancel', stopTracking);
+      document.removeEventListener('touchend', onUp, passiveSupported ? {
+        passive: true
+      } : false);
+      document.removeEventListener('touchcancel', stopTracking, passiveSupported ? {
+        passive: true
+      } : false);
       document.removeEventListener('mousemove', onMove, passiveSupported ? {
         passive: false
       } : false);
-      document.removeEventListener('mouseup', onUp);
+      document.removeEventListener('mouseup', onUp, passiveSupported ? {
+        passive: true
+      } : false);
     }
 
     function addRuntimeEvents() {
@@ -160,12 +185,18 @@
       document.addEventListener('touchmove', onMove, passiveSupported ? {
         passive: false
       } : false);
-      document.addEventListener('touchend', onUp);
-      document.addEventListener('touchcancel', stopTracking);
+      document.addEventListener('touchend', onUp, passiveSupported ? {
+        passive: true
+      } : false);
+      document.addEventListener('touchcancel', stopTracking, passiveSupported ? {
+        passive: true
+      } : false);
       document.addEventListener('mousemove', onMove, passiveSupported ? {
         passive: false
       } : false);
-      document.addEventListener('mouseup', onUp);
+      document.addEventListener('mouseup', onUp, passiveSupported ? {
+        passive: true
+      } : false);
     }
 
     function callUpdateCallback() {
@@ -174,9 +205,33 @@
       prevTargetY = targetY;
     }
 
+    function callStartCallback() {
+      if (!startCallback) {
+        return;
+      }
+
+      startCallback.call(sourceEl, targetX, targetY, prevTargetX, prevTargetY);
+    }
+
+    function callStartDeceleratingCallback() {
+      if (!startDeceleratingCallback) {
+        return;
+      }
+
+      startDeceleratingCallback.call(sourceEl, targetX, targetY, prevTargetX, prevTargetY);
+    }
+
+    function callEndDeceleratingCallback() {
+      if (!endDeceleratingCallback) {
+        return;
+      }
+
+      endDeceleratingCallback.call(sourceEl, targetX, targetY, prevTargetX, prevTargetY);
+    }
+
     function normalizeEvent(ev) {
       if (ev.type === 'touchmove' || ev.type === 'touchstart' || ev.type === 'touchend') {
-        var touch = ev.targetTouches[0] || ev.changedTouches[0];
+        var touch = ev.changedTouches[0];
         return {
           x: touch.clientX,
           y: touch.clientY,
@@ -195,6 +250,7 @@
       var event = normalizeEvent(ev);
 
       if (!pointerActive && !paused) {
+        callStartCallback();
         pointerActive = true;
         decelerating = false;
         pointerId = event.id;
@@ -332,10 +388,13 @@
       decVelX = xOffset / D || 0;
       decVelY = yOffset / D || 0;
       var diff = checkBounds();
+      callStartDeceleratingCallback();
 
       if (Math.abs(decVelX) > 1 || Math.abs(decVelY) > 1 || !diff.inBounds) {
         decelerating = true;
         requestAnimFrame(stepDecelAnim);
+      } else {
+        callEndDeceleratingCallback();
       }
     }
 
@@ -398,11 +457,12 @@
         requestAnimFrame(stepDecelAnim);
       } else {
         decelerating = false;
+        callEndDeceleratingCallback();
       }
     }
   };
 
-  return Implosion;
+  return Impulsion;
 
 })));
-//# sourceMappingURL=implosion.js.map
+//# sourceMappingURL=impulsion.js.map

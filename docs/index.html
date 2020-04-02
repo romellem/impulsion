@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<title>Implosion.js - Add Momentum to Anything</title>
+	<title>Impulsion.js - Add Momentum to Anything</title>
 	<meta name="keywords" content="JavaScript, JS, Momentum" />
 	<link href='//fonts.googleapis.com/css?family=Raleway:100' rel='stylesheet' type='text/css'>
 	<style>
@@ -162,11 +162,11 @@
 <body>
 	<header>
 		<div class="container">
-			<h1>Implosion.js</h1>
+			<h1>Impulsion.js</h1>
 			<p>Add momentum to anything. It's like iScroll, except not for scrolling. Supports mouse and touch events. Less than 1.5KB gzipped.</p>
 			<div>
-				<a class="button" href="https://github.com/romellem/implosion">View on GitHub</a>
-				<a class="button" href="https://unpkg.com/implosion/dist/implosion.min.js">Download</a>
+				<a class="button" href="https://github.com/romellem/impulsion">View on GitHub</a>
+				<a class="button" href="https://unpkg.com/impulsion/dist/impulsion.min.js">Download</a>
 			</div>
 		</div>
 	</header>
@@ -178,15 +178,15 @@
 	</div>
 	<div class="info-area">
 		<div class="container">
-		    <p>Implosion is meant to be used as a part of other components &mdash; these simple demos just demonstrate the momentum. For an example of a practical implementation, take a look at <a href="http://romellem.github.io/spherical/">Spherical.js</a>.</p>
+		    <p>Impulsion is meant to be used as a part of other components &mdash; these simple demos just demonstrate the momentum. For an example of a practical implementation, take a look at <a href="http://romellem.github.io/spherical/">Spherical.js</a>.</p>
 	        <h2>Usage</h2>
-			<pre><code>new Implosion({
+			<pre><code>new impulsion({
     source: myNode,
     update: function(x, y) {
         // whatever you want to do with the values
     }
 });</code></pre>
-			<p>For more usage details, see the <a href="https://github.com/romellem/implosion">API</a> on GitHub.</p>
+			<p>For more usage details, see the <a href="https://github.com/romellem/impulsion">API</a> on GitHub.</p>
 		</div>
 	</div>
 
@@ -196,12 +196,12 @@
 		</div>
 	</footer>
 
-	<script src="implosion.js"></script>
+	<script src="impulsion.js"></script>
 	<script>
 	var dotEl = document.getElementById('Dot');
 	var dotParent = dotEl.offsetParent;
 
-	var dotImplosion = new Implosion({
+	var dotImpulsion = new Impulsion({
 		source: dotEl,
 		initialValues: [dotParent.offsetWidth/2 - 25, 45],
 		boundX: [0, dotParent.offsetWidth - dotEl.offsetWidth],
@@ -212,7 +212,7 @@
 		}
 	});
 
-	new Implosion({
+	new Impulsion({
 		source: '#Cube',
 		multiplier: 0.7,
 		update: function(x, y) {

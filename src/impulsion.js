@@ -36,7 +36,7 @@ const passiveSupported = (() => {
 // @see https://github.com/metafizzy/flickity/issues/457#issuecomment-254501356
 window.addEventListener('touchmove', function() {}, passiveSupported ? { passive: true } : false);
 
-export default class Implosion {
+export default class Impulsion {
 	constructor({
 		source: sourceEl = document,
 		update: updateCallbackDeprecated,
@@ -120,7 +120,7 @@ export default class Implosion {
 
 		/**
 		 * In edge cases where you may need to
-		 * reinstanciate Implosion on the same sourceEl
+		 * reinstanciate Impulsion on the same sourceEl
 		 * this will remove the previous event listeners
 		 */
 		this.destroy = function() {

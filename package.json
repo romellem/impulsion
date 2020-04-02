@@ -1,8 +1,8 @@
 {
-  "name": "implosion",
+  "name": "impulsion",
   "version": "0.10.1",
-  "main": "dist/implosion.js",
-  "homepage": "http://romellem.github.io/implosion/",
+  "main": "dist/impulsion.js",
+  "homepage": "http://romellem.github.io/impulsion/",
   "description": "Add momentum to anything. It's like iScroll, except not for scrolling. Supports mouse and touch events.",
   "scripts": {
     "prebuild": "node scripts/prebuild.js",
@@ -21,10 +21,10 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git@github.com:romellem/implosion.git"
+    "url": "git@github.com:romellem/impulsion.git"
   },
   "bugs": {
-    "url": "https://github.com/romellem/implosion/issues"
+    "url": "https://github.com/romellem/impulsion/issues"
   },
   "devDependencies": {
     "@babel/cli": "^7.8.4",
