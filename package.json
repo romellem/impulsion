@@ -1,6 +1,6 @@
 {
   "name": "impulsion",
-  "version": "0.10.1",
+  "version": "0.11.0",
   "main": "dist/impulsion.js",
   "homepage": "http://romellem.github.io/impulsion/",
   "description": "Add momentum to anything. It's like iScroll, except not for scrolling. Supports mouse and touch events.",
