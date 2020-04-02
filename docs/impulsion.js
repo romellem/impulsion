@@ -53,7 +53,9 @@
         boundX = _ref.boundX,
         boundY = _ref.boundY,
         _ref$bounce = _ref.bounce,
-        bounce = _ref$bounce === void 0 ? true : _ref$bounce;
+        bounce = _ref$bounce === void 0 ? true : _ref$bounce,
+        _ref$addIosTouchmoveF = _ref.addIosTouchmoveFix,
+        addIosTouchmoveFix = _ref$addIosTouchmoveF === void 0 ? true : _ref$addIosTouchmoveF;
 
     _classCallCheck(this, Impulsion);
 
@@ -69,7 +71,7 @@
     var decelerating = false;
     var trackingPoints = [];
 
-    if (!iosNoopTouchmoveAdded) {
+    if (addIosTouchmoveFix && !iosNoopTouchmoveAdded) {
       window.addEventListener('touchmove', function () {}, passiveSupported ? {
         passive: false
       } : false);

@@ -49,6 +49,7 @@ export default class Impulsion {
 		boundX,
 		boundY,
 		bounce = true,
+		addIosTouchmoveFix = true,
 	}) {
 		let boundXmin,
 			boundXmax,
@@ -72,7 +73,7 @@ export default class Impulsion {
 		let decelerating = false;
 		let trackingPoints = [];
 
-		if (!iosNoopTouchmoveAdded) {
+		if (addIosTouchmoveFix && !iosNoopTouchmoveAdded) {
 			// fixes weird safari 10 bug where preventDefault is prevented
 			// @see https://github.com/metafizzy/flickity/issues/457#issuecomment-254501356
 			window.addEventListener('touchmove', function() {}, passiveSupported ? { passive: false } : false);
