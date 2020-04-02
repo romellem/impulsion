@@ -59,7 +59,7 @@ Impulsion will register itself as an AMD module if it's available.
 			<th scope="row" align="left"><code>onUpdate</code> (required)</th>
 			<td><code>function(x, y)</code></td>
 			<td>-</td>
-			<td>This function will be called with the updated <var>x</var> and <var>y</var> values. This configuration was renamed from `update`, and `update` has been deprecated, to be removed in the next major version.</td>
+			<td>This function will be called with the updated <var>x</var> and <var>y</var> values.</td>
 		</tr>
 		<tr>
 			<th scope="row" align="left"><code>onStartDecelerating</code></th>
