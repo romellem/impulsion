@@ -1,4 +1,4 @@
-# Implosion.js
+# Impulsion.js
 
 > Fork of the excellent [impetus.js](https://github.com/chrisbateman/impetus) by Chris Bateman.
 
@@ -6,21 +6,21 @@ Add momentum to anything. It's like iScroll, except not for scrolling. Supports 
 
 Check out the demos on the [home page](http://romellem.github.io/impulsion).
 
-Implosion will probably never support anything other than simple momentum. If you need scrolling or touch carousels or anything like that, this probably isn't the tool you're looking for.
+Impulsion will probably never support anything other than simple momentum. If you need scrolling or touch carousels or anything like that, this probably isn't the tool you're looking for.
 
 ## Installation
 
 ```
-yarn add implosion
-# or npm install implosion
+yarn add impulsion
+# or npm install impulsion
 ```
 
 ### Usage
 ```javascript
-import Implosion from 'implosion';
-// const Implosion = require('implosion');
+import Impulsion from 'impulsion';
+// const Impulsion = require('impulsion');
 
-let myImplosion = new Implosion({
+let myImpulsion = new Impulsion({
     source: myNode,
     onUpdate(x, y, previousX, previousY) {
         // whatever you want to do with the values
@@ -30,7 +30,7 @@ let myImplosion = new Implosion({
 
 You give it an area to listen to for touch or mouse events, and it gives you the `x` and `y` values with some momentum.
 
-Implosion will register itself as an AMD module if it's available.
+Impulsion will register itself as an AMD module if it's available.
 
 ### Constructor Options
 <table>

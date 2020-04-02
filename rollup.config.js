@@ -30,6 +30,6 @@ const makeRollupConfig = (globalObjectName, inputFile, outputFile) => {
 };
 
 export default [
-	makeRollupConfig('Implosion', 'src/implosion.js', 'dist/implosion.js'),
-	makeRollupConfig('Implosion', 'src/implosion.js', 'dist/implosion.min.js'),
+	makeRollupConfig('Impulsion', 'src/impulsion.js', 'dist/impulsion.js'),
+	makeRollupConfig('Impulsion', 'src/impulsion.js', 'dist/impulsion.min.js'),
 ];
