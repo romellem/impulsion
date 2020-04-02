@@ -66,7 +66,7 @@ This is a list of all useful [forks](https://github.com/chrisbateman/impetus/net
     - Adds ability to set an "axis" for events
 - https://github.com/anhnhoktvn/impetus/
     - Removes the "preventDefault" on the `onMove` handler.
-- 🔎 https://github.com/azaslavsky/impetus/
+- ⭐️ https://github.com/azaslavsky/impetus/
     - Passes in `window` as option so "Impetus can be applied to child iframes"
 - https://github.com/Baconiser/impetus/
     - Emit events
