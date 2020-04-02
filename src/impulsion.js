@@ -85,7 +85,7 @@ export default class Impulsion {
 		 * Initialize instance
 		 */
 		(function init() {
-			sourceEl = typeof sourceEl === 'string' ? win.querySelector(sourceEl) : sourceEl;
+			sourceEl = typeof sourceEl === 'string' ? document.querySelector(sourceEl) : sourceEl;
 			if (!sourceEl) {
 				throw new Error('IMPETUS: source not found.');
 			}
