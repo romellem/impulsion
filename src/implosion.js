@@ -39,7 +39,11 @@ window.addEventListener('touchmove', function() {}, passiveSupported ? { passive
 export default class Implosion {
 	constructor({
 		source: sourceEl = document,
-		update: updateCallback,
+		update: updateCallbackDeprecated,
+		onUpdate: updateCallback,
+		onStart: startCallback,
+		onStartDecelerating: startDeceleratingCallback,
+		onEndDecelerating: endDeceleratingCallback,
 		multiplier = 1,
 		friction = 0.92,
 		initialValues,
@@ -76,6 +80,14 @@ export default class Implosion {
 			sourceEl = typeof sourceEl === 'string' ? document.querySelector(sourceEl) : sourceEl;
 			if (!sourceEl) {
 				throw new Error('IMPETUS: source not found.');
+			}
+
+			/**
+			 * Using the `update` configuration is deprecated, us the `onUpdate` key instead
+			 * @deprecated
+			 */
+			if (!updateCallback && updateCallbackDeprecated) {
+				updateCallback = updateCallbackDeprecated;
 			}
 
 			if (!updateCallback) {
@@ -220,6 +232,36 @@ export default class Implosion {
 		}
 
 		/**
+		 * Executes the start function
+		 */
+		function callStartCallback() {
+			if (!startCallback) {
+				return;
+			}
+			startCallback.call(sourceEl, targetX, targetY, prevTargetX, prevTargetY);
+		}
+
+		/**
+		 * Executes the start decelerating function
+		 */
+		function callStartDeceleratingCallback() {
+			if (!startDeceleratingCallback) {
+				return;
+			}
+			startDeceleratingCallback.call(sourceEl, targetX, targetY, prevTargetX, prevTargetY);
+		}
+
+		/**
+		 * Executes the end decelerating function
+		 */
+		function callEndDeceleratingCallback() {
+			if (!endDeceleratingCallback) {
+				return;
+			}
+			endDeceleratingCallback.call(sourceEl, targetX, targetY, prevTargetX, prevTargetY);
+		}
+
+		/**
 		 * Creates a custom normalized event object from touch and mouse events
 		 * @param  {Event} ev
 		 * @returns {Object} with x, y, and id properties
@@ -249,6 +291,7 @@ export default class Implosion {
 		function onDown(ev) {
 			let event = normalizeEvent(ev);
 			if (!pointerActive && !paused) {
+				callStartCallback();
 				pointerActive = true;
 				decelerating = false;
 				pointerId = event.id;
@@ -419,9 +462,12 @@ export default class Implosion {
 
 			let diff = checkBounds();
 
+			callStartDeceleratingCallback();
 			if (Math.abs(decVelX) > 1 || Math.abs(decVelY) > 1 || !diff.inBounds) {
 				decelerating = true;
 				requestAnimFrame(stepDecelAnim);
+			} else {
+				callEndDeceleratingCallback();
 			}
 		}
 
@@ -485,6 +531,7 @@ export default class Implosion {
 				requestAnimFrame(stepDecelAnim);
 			} else {
 				decelerating = false;
+				callEndDeceleratingCallback();
 			}
 		}
 	}
