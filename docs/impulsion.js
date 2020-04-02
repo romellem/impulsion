@@ -40,7 +40,6 @@
   var Impulsion = function Impulsion(_ref) {
     var _ref$source = _ref.source,
         sourceEl = _ref$source === void 0 ? window : _ref$source,
-        updateCallbackDeprecated = _ref.update,
         updateCallback = _ref.onUpdate,
         startCallback = _ref.onStart,
         startDeceleratingCallback = _ref.onStartDecelerating,
@@ -81,18 +80,14 @@
     }
 
     (function init() {
-      sourceEl = typeof sourceEl === 'string' ? win.querySelector(sourceEl) : sourceEl;
+      sourceEl = typeof sourceEl === 'string' ? document.querySelector(sourceEl) : sourceEl;
 
       if (!sourceEl) {
         throw new Error('IMPETUS: source not found.');
       }
 
-      if (!updateCallback && updateCallbackDeprecated) {
-        updateCallback = updateCallbackDeprecated;
-      }
-
       if (!updateCallback) {
-        throw new Error('IMPETUS: update function not defined.');
+        throw new Error('IMPETUS: onUpdate function not defined.');
       }
 
       if (initialValues) {

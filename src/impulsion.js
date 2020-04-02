@@ -38,7 +38,6 @@ let iosNoopTouchmoveAdded = false;
 export default class Impulsion {
 	constructor({
 		source: sourceEl = window,
-		update: updateCallbackDeprecated,
 		onUpdate: updateCallback,
 		onStart: startCallback,
 		onStartDecelerating: startDeceleratingCallback,
@@ -86,21 +85,13 @@ export default class Impulsion {
 		 * Initialize instance
 		 */
 		(function init() {
-			sourceEl = typeof sourceEl === 'string' ? win.querySelector(sourceEl) : sourceEl;
+			sourceEl = typeof sourceEl === 'string' ? document.querySelector(sourceEl) : sourceEl;
 			if (!sourceEl) {
 				throw new Error('IMPETUS: source not found.');
 			}
 
-			/**
-			 * Using the `update` configuration is deprecated, us the `onUpdate` key instead
-			 * @deprecated
-			 */
-			if (!updateCallback && updateCallbackDeprecated) {
-				updateCallback = updateCallbackDeprecated;
-			}
-
 			if (!updateCallback) {
-				throw new Error('IMPETUS: update function not defined.');
+				throw new Error('IMPETUS: onUpdate function not defined.');
 			}
 
 			if (initialValues) {
