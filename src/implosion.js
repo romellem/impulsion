@@ -226,7 +226,7 @@ export default class Implosion {
 		 */
 		function normalizeEvent(ev) {
 			if (ev.type === 'touchmove' || ev.type === 'touchstart' || ev.type === 'touchend') {
-				let touch = ev.targetTouches[0] || ev.changedTouches[0];
+				let touch = ev.changedTouches[0];
 				return {
 					x: touch.clientX,
 					y: touch.clientY,
