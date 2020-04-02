@@ -22,7 +22,7 @@ import Implosion from 'implosion';
 
 let myImplosion = new Implosion({
     source: myNode,
-    update(x, y) {
+    onUpdate(x, y, previousX, previousY) {
         // whatever you want to do with the values
     }
 });
@@ -50,10 +50,28 @@ Implosion will register itself as an AMD module if it's available.
 			<td>Element reference or query string for the target on which to listen for movement.</td>
 		</tr>
 		<tr>
-			<th scope="row" align="left"><code>update</code> (required)</th>
+			<th scope="row" align="left"><code>onStart</code></th>
 			<td><code>function(x, y)</code></td>
 			<td>-</td>
-			<td>This function will be called with the updated <var>x</var> and <var>y</var> values.</td>
+			<td>This function will be called when starting to drag the element</td>
+		</tr>
+		<tr>
+			<th scope="row" align="left"><code>onUpdate</code> (required)</th>
+			<td><code>function(x, y)</code></td>
+			<td>-</td>
+			<td>This function will be called with the updated <var>x</var> and <var>y</var> values. This configuration was renamed from `update`, and `update` has been deprecated, to be removed in the next major version.</td>
+		</tr>
+		<tr>
+			<th scope="row" align="left"><code>onStartDecelerating</code></th>
+			<td><code>function(x, y)</code></td>
+			<td>-</td>
+			<td>This function will be called when the deceleration begun (and drag has ended)</td>
+		</tr>
+		<tr>
+			<th scope="row" align="left"><code>onEndDecelerating</code></th>
+			<td><code>function(x, y)</code></td>
+			<td>-</td>
+			<td>This function will be called when the deceleration has ended</td>
 		</tr>
 		<tr>
 			<th scope="row" align="left"><code>multiplier</code></th>
@@ -70,7 +88,7 @@ Implosion will register itself as an AMD module if it's available.
 		<tr>
 			<th scope="row" align="left"><code>initialValues</code></th>
 			<td><code>[Number, Number]</code></td>
-			<td><code>[0, 0]</code></td>
+			<td><code>[0, 0]</code></td>
 			<td>Array of initial <var>x</var> and <var>y</var> values.</td>
 		</tr>
 		<tr>
