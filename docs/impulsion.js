@@ -4,6 +4,22 @@
   (global = global || self, global.Impulsion = factory());
 }(this, (function () { 'use strict';
 
+  function _typeof(obj) {
+    "@babel/helpers - typeof";
+
+    if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
+      _typeof = function (obj) {
+        return typeof obj;
+      };
+    } else {
+      _typeof = function (obj) {
+        return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+      };
+    }
+
+    return _typeof(obj);
+  }
+
   function _classCallCheck(instance, Constructor) {
     if (!(instance instanceof Constructor)) {
       throw new TypeError("Cannot call a class as a function");
@@ -142,13 +158,23 @@
       paused = false;
     };
 
-    this.setValues = function (x, y) {
-      if (typeof x === 'number') {
+    this.setValues = function (x, y, previousX, previousY) {
+      var n = 'number';
+
+      if (_typeof(x) === n) {
         targetX = x;
       }
 
-      if (typeof y === 'number') {
+      if (_typeof(y) === n) {
         targetY = y;
+      }
+
+      if (_typeof(previousX) === n || previousX === null) {
+        prevTargetX = previousX;
+      }
+
+      if (_typeof(previousY) === n || previousY === null) {
+        prevTargetY = previousY;
       }
     };
 
