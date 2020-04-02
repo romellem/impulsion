@@ -154,17 +154,27 @@ export default class Impulsion {
 		};
 
 		/**
-		 * Update the current x and y values
+		 * Update the current or previous x and y values
 		 * @public
 		 * @param {Number} x
 		 * @param {Number} y
+		 * @param {Number|null} previousX
+		 * @param {Number|null} previousY
 		 */
-		this.setValues = function(x, y) {
-			if (typeof x === 'number') {
+		this.setValues = function(x, y, previousX, previousY) {
+			const n = 'number';
+
+			if (typeof x === n) {
 				targetX = x;
 			}
-			if (typeof y === 'number') {
+			if (typeof y === n) {
 				targetY = y;
+			}
+			if (typeof previousX === n || previousX === null) {
+				prevTargetX = previousX;
+			}
+			if (typeof previousY === n || previousY === null) {
+				prevTargetY = previousY;
 			}
 		};
 
