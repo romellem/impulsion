@@ -117,6 +117,7 @@
     })();
 
     this.destroy = function () {
+      decelerating = false;
       sourceEl.removeEventListener('touchstart', onDown, passiveSupported ? {
         passive: true
       } : false);
