@@ -36,7 +36,7 @@
   }();
 
   window.addEventListener('touchmove', function () {}, passiveSupported ? {
-    passive: true
+    passive: false
   } : false);
 
   var Impulsion = function Impulsion(_ref) {
