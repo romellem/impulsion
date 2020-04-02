@@ -155,8 +155,8 @@ Impulsion will register itself as an AMD module if it's available.
 			<td>Adjust the <var>multiplier</var> in flight.</td>
 		</tr>
 		<tr>
-			<th scope="row" align="left"><code>.setValues( &lt;number&gt; , &lt;number&gt; )</code></th>
-			<td>Adjust the current <var>x</var> and <var>y</var> output values.</td>
+			<th scope="row" align="left"><code>.setValues( &lt;number&gt; , &lt;number&gt; , &lt;number|null&gt; , &lt;number|null&gt;)</code></th>
+			<td>Adjust the current <var>x</var>, <var>y</var>, <var>previousX</var> and <var>previousY</var> output values. <var>previousX</var> and <var>previousY</var> can be <code>null</code>.</td>
 		</tr>
 		<tr>
 			<th scope="row" align="left"><code>.setBoundX( &lt;number[2]&gt; )</code></th>
