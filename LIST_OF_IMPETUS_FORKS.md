@@ -1,0 +1,71 @@
+This is a list of all useful [forks](https://github.com/chrisbateman/impetus/network/members) of the [Impetus](https://github.com/chrisbateman/impetus) and what features / fixes they implement.
+
+> Items marked with a star (⭐️) have been ported into this repo.  
+> Items marked in **bold** were added into the latest version Impetus.  
+> Items with a magnifying glass (🔎) should be explored some more.  
+
+- https://github.com/benplum/impetus
+    - Emits custom events when lib starts/stops
+- https://github.com/borilla/impetus
+    - New fork called "bumpitus," with "plugable deceleration calculation"
+- **https://github.com/firasdib/impetus**
+    - Fixes event listener memory leaks
+    - Added in [`314d42e4`](https://github.com/chrisbateman/impetus/commit/314d42e4).
+- **https://github.com/hooriza/impetus**
+    - Adds in `destroy` method
+    - Added in [`d12ac456`](https://github.com/chrisbateman/impetus/commit/d12ac4565).
+- https://github.com/igghera/impetus
+    - Emit custom events when deceleration is complete
+- 🔎 https://github.com/IMGNRY/impetus
+    - Removes iOS 10 "hack" by adding no-op touchmove listener
+- ⭐️ https://github.com/joewoodson/impetus
+    - Pulls in PR from https://github.com/chrisbateman/impetus/pull/38
+    - Adds in more lifecycle events:
+        - onStart : called when starting to drag the element
+        - onStartDecelerating : called when the deceleration begun
+        - onEndDecelerating : called when the deceleration has ended
+        - Renamed `update` to `onUpdate` in order to be more consistent on naming
+- https://github.com/joshwagoner/impetus
+    - Implements from iOS fixes (features?) for their "yuwa" site.
+- https://github.com/kdcro101/impetus
+    - Adds variable to ignore mousedown events
+- https://github.com/ljsnagy/impetus
+    - Doesn't prevent default on `onMove`
+        - Why?
+- ⭐️ https://github.com/rhysburnie/impetus
+    - `destroy` method stops any stray animation loop that might remain
+- https://github.com/RomainFrancony/impetus/
+    - The original work from https://github.com/joewoodson/impetus I think?
+- https://github.com/Simbioz/impetus/
+    - ⭐️ Fixes multi-touch jumpiness
+    - ⭐️ Adds passive event listeners where possible
+    - Adds ability to stop the event from propagating 
+    - https://github.com/Simbioz/impetus/compare/ef9fefec...Simbioz:master
+- 🔎 https://github.com/SonoIo/impetus
+    - Adds a `directionLock` option
+    - Forked and published under `my-impetus` from https://github.com/johnwest80/my-impetus
+- https://github.com/TheCertain/impetus/
+    - Added method to change bounds at a later point
+- 🔎 https://github.com/timetravelcorp/impetus/
+    - Complete refactor. Hard to find exact differences at the moment.
+    - https://github.com/timetravelcorp/impetus/commit/21e7a145
+- https://github.com/timothyallan/impetus/
+    - Ignores multi-touch. "If we've got an active event going, and another touch comes into play, just exit and let any other running multitouch handlers take over."
+    - Fixes https://github.com/chrisbateman/impetus/issues/13
+- https://github.com/weotch/impetus/
+    - Another multi-touch fix (from github.com:Simbioz/impetus)
+        - Fixes a specific issue they'd see on their site.
+    - Adds option to prevent scroll on mobile. I actually don't know if this is "ok" to do since we are using passive event listeners.
+- https://github.com/yahalton/impetus/
+    - Adds 'pause' option
+    - Emit events
+    - Adds optional function to transform the event while normalizing it
+- 🔎 https://github.com/gtorres-phunware/impetus/
+    - Adds ability to set an "axis" for events
+- https://github.com/anhnhoktvn/impetus/
+    - Removes the "preventDefault" on the `onMove` handler.
+- 🔎 https://github.com/azaslavsky/impetus/
+    - Passes in `window` as option so "Impetus can be applied to child iframes"
+- https://github.com/Baconiser/impetus/
+    - Emit events
+    - Improved "tap" experience (with mouse?)
