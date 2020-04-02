@@ -1,6 +1,15 @@
 # Impulsion.js
 
 > Fork of the excellent [impetus.js](https://github.com/chrisbateman/impetus) by Chris Bateman.
+>
+> Adds new features such as:
+> - Exposes `previousX` and `previousY` to our lifecycle events.
+> - Adds more lifecycle events:
+>    - `onStart`: Called when starting to drag the element.
+>    - `onStartDecelerating`: Called when the deceleration begun.
+>    - `onEndDecelerating`: called when the deceleration has ended.
+>
+> As well other bugfixes and minor features.
 
 Add momentum to anything. It's like iScroll, except not for scrolling. Supports mouse and touch events.
 
