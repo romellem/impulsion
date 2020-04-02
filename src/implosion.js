@@ -34,7 +34,7 @@ const passiveSupported = (() => {
 
 // fixes weird safari 10 bug where preventDefault is prevented
 // @see https://github.com/metafizzy/flickity/issues/457#issuecomment-254501356
-window.addEventListener('touchmove', function() {});
+window.addEventListener('touchmove', function() {}, passiveSupported ? { passive: true } : false);
 
 export default class Implosion {
 	constructor({
@@ -102,8 +102,8 @@ export default class Implosion {
 				boundYmax = boundY[1];
 			}
 
-			sourceEl.addEventListener('touchstart', onDown);
-			sourceEl.addEventListener('mousedown', onDown);
+			sourceEl.addEventListener('touchstart', onDown, passiveSupported ? { passive: true } : false);
+			sourceEl.addEventListener('mousedown', onDown, passiveSupported ? { passive: true } : false);
 		})();
 
 		/**
@@ -112,8 +112,8 @@ export default class Implosion {
 		 * this will remove the previous event listeners
 		 */
 		this.destroy = function() {
-			sourceEl.removeEventListener('touchstart', onDown);
-			sourceEl.removeEventListener('mousedown', onDown);
+			sourceEl.removeEventListener('touchstart', onDown, passiveSupported ? { passive: true } : false);
+			sourceEl.removeEventListener('mousedown', onDown, passiveSupported ? { passive: true } : false);
 
 			cleanUpRuntimeEvents();
 
@@ -190,10 +190,10 @@ export default class Implosion {
 		function cleanUpRuntimeEvents() {
 			// Remove all touch events added during 'onDown' as well.
 			document.removeEventListener('touchmove', onMove, passiveSupported ? { passive: false } : false);
-			document.removeEventListener('touchend', onUp);
-			document.removeEventListener('touchcancel', stopTracking);
+			document.removeEventListener('touchend', onUp, passiveSupported ? { passive: true } : false);
+			document.removeEventListener('touchcancel', stopTracking, passiveSupported ? { passive: true } : false);
 			document.removeEventListener('mousemove', onMove, passiveSupported ? { passive: false } : false);
-			document.removeEventListener('mouseup', onUp);
+			document.removeEventListener('mouseup', onUp, passiveSupported ? { passive: true } : false);
 		}
 
 		/**
@@ -204,10 +204,10 @@ export default class Implosion {
 
 			// @see https://developers.google.com/web/updates/2017/01/scrolling-intervention
 			document.addEventListener('touchmove', onMove, passiveSupported ? { passive: false } : false);
-			document.addEventListener('touchend', onUp);
-			document.addEventListener('touchcancel', stopTracking);
+			document.addEventListener('touchend', onUp, passiveSupported ? { passive: true } : false);
+			document.addEventListener('touchcancel', stopTracking, passiveSupported ? { passive: true } : false);
 			document.addEventListener('mousemove', onMove, passiveSupported ? { passive: false } : false);
-			document.addEventListener('mouseup', onUp);
+			document.addEventListener('mouseup', onUp, passiveSupported ? { passive: true } : false);
 		}
 
 		/**
