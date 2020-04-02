@@ -1,9 +1,11 @@
 # Config
 .npmignore
 babel.config.js
+rollup.config.js
 
-# Github Pages
+# Github Pages and other documentation
 docs
+LIST_OF_IMPETUS_FORKS.md
 
 # Parcel cache
 .cache
