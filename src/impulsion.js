@@ -124,6 +124,8 @@ export default class Impulsion {
 		 * this will remove the previous event listeners
 		 */
 		this.destroy = function() {
+			// Stop any stray animations that may be happening
+			decelerating = false;
 			sourceEl.removeEventListener('touchstart', onDown, passiveSupported ? { passive: true } : false);
 			sourceEl.removeEventListener('mousedown', onDown, passiveSupported ? { passive: true } : false);
 
