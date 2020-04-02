@@ -34,7 +34,7 @@ const passiveSupported = (() => {
 
 // fixes weird safari 10 bug where preventDefault is prevented
 // @see https://github.com/metafizzy/flickity/issues/457#issuecomment-254501356
-window.addEventListener('touchmove', function() {}, passiveSupported ? { passive: true } : false);
+window.addEventListener('touchmove', function() {}, passiveSupported ? { passive: false } : false);
 
 export default class Impulsion {
 	constructor({
