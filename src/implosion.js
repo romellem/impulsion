@@ -2,10 +2,6 @@ const stopThresholdDefault = 0.3;
 const bounceDeceleration = 0.04;
 const bounceAcceleration = 0.11;
 
-// fixes weird safari 10 bug where preventDefault is prevented
-// @see https://github.com/metafizzy/flickity/issues/457#issuecomment-254501356
-window.addEventListener('touchmove', function() {});
-
 /**
  * @see http://www.paulirish.com/2011/requestanimationframe-for-smart-animating/
  */
@@ -35,6 +31,10 @@ const passiveSupported = (() => {
 
 	return _passiveSupported;
 })();
+
+// fixes weird safari 10 bug where preventDefault is prevented
+// @see https://github.com/metafizzy/flickity/issues/457#issuecomment-254501356
+window.addEventListener('touchmove', function() {});
 
 export default class Implosion {
 	constructor({
