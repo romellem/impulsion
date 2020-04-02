@@ -16,8 +16,10 @@ This is a list of all useful [forks](https://github.com/chrisbateman/impetus/net
     - Added in [`d12ac456`](https://github.com/chrisbateman/impetus/commit/d12ac4565).
 - https://github.com/igghera/impetus
     - Emit custom events when deceleration is complete
-- 🔎 https://github.com/IMGNRY/impetus
+- https://github.com/IMGNRY/impetus
     - Removes iOS 10 "hack" by adding no-op touchmove listener
+    - ⭐️ This was sort of added in [#18](https://github.com/romellem/impulsion/pull/18),
+        in that the user now has the option to not add this listener if they choose.
 - ⭐️ https://github.com/joewoodson/impetus
     - Pulls in PR from https://github.com/chrisbateman/impetus/pull/38
     - Adds in more lifecycle events:
