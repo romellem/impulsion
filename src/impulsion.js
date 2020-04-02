@@ -32,9 +32,8 @@ const passiveSupported = (() => {
 	return _passiveSupported;
 })();
 
-// fixes weird safari 10 bug where preventDefault is prevented
-// @see https://github.com/metafizzy/flickity/issues/457#issuecomment-254501356
-window.addEventListener('touchmove', function() {}, passiveSupported ? { passive: false } : false);
+// Enables us to add the iOS hacky 'touchmove' empty listener fix to the window only once
+let iosNoopTouchmoveAdded = false;
 
 export default class Impulsion {
 	constructor({
@@ -50,6 +49,7 @@ export default class Impulsion {
 		boundX,
 		boundY,
 		bounce = true,
+		addIosTouchmoveFix = true,
 	}) {
 		let boundXmin,
 			boundXmax,
@@ -72,6 +72,14 @@ export default class Impulsion {
 		let paused = false;
 		let decelerating = false;
 		let trackingPoints = [];
+
+		if (addIosTouchmoveFix && !iosNoopTouchmoveAdded) {
+			// fixes weird safari 10 bug where preventDefault is prevented
+			// @see https://github.com/metafizzy/flickity/issues/457#issuecomment-254501356
+			window.addEventListener('touchmove', function() {}, passiveSupported ? { passive: false } : false);
+
+			iosNoopTouchmoveAdded = true;
+		}
 
 		/**
 		 * Initialize instance

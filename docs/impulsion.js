@@ -35,9 +35,7 @@
     return _passiveSupported;
   }();
 
-  window.addEventListener('touchmove', function () {}, passiveSupported ? {
-    passive: false
-  } : false);
+  var iosNoopTouchmoveAdded = false;
 
   var Impulsion = function Impulsion(_ref) {
     var _ref$source = _ref.source,
@@ -55,7 +53,9 @@
         boundX = _ref.boundX,
         boundY = _ref.boundY,
         _ref$bounce = _ref.bounce,
-        bounce = _ref$bounce === void 0 ? true : _ref$bounce;
+        bounce = _ref$bounce === void 0 ? true : _ref$bounce,
+        _ref$addIosTouchmoveF = _ref.addIosTouchmoveFix,
+        addIosTouchmoveFix = _ref$addIosTouchmoveF === void 0 ? true : _ref$addIosTouchmoveF;
 
     _classCallCheck(this, Impulsion);
 
@@ -70,6 +70,13 @@
     var paused = false;
     var decelerating = false;
     var trackingPoints = [];
+
+    if (addIosTouchmoveFix && !iosNoopTouchmoveAdded) {
+      window.addEventListener('touchmove', function () {}, passiveSupported ? {
+        passive: false
+      } : false);
+      iosNoopTouchmoveAdded = true;
+    }
 
     (function init() {
       sourceEl = typeof sourceEl === 'string' ? document.querySelector(sourceEl) : sourceEl;

@@ -109,6 +109,12 @@ Impulsion will register itself as an AMD module if it's available.
 			<td><code>true</code></td>
 			<td>Whether to stretch and rebound values when pulled outside the bounds.</td>
 		</tr>
+		<tr>
+			<th scope="row" align="left"><code>addIosTouchmoveFix</code></th>
+			<td><code>Boolean</code></td>
+			<td><code>true</code></td>
+			<td>iOS sometimes fails to <code>preventDefault</code> when scrolling on the body. Per <a href="https://github.com/metafizzy/flickity/issues/457#issuecomment-254501356">this comment</a>, one fix is to add an empty <code>touchmove</code> listener to the main <code>window</code>. This library adds this by default, but if you want to override this hacky listener, it can be disabled by setting this option to <code>false</code>.<br><br>Other information: <ul><li><a href="https://stackoverflow.com/a/49582193">Can't prevent "touchmove" from scrolling window on iOS</a></li><li><a href="https://github.com/facebook/react/issues/9809">touchstart preventDefault() does not prevent click event.</a></li></td>
+		</tr>
 	</tbody>
 </table>
 
