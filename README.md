@@ -46,7 +46,7 @@ Impulsion will register itself as an AMD module if it's available.
 		<tr>
 			<th scope="row" align="left"><code>source</code></th>
 			<td><code>HTMLElement</code>|<code>String</code></td>
-			<td>document</td>
+			<td>window</td>
 			<td>Element reference or query string for the target on which to listen for movement.</td>
 		</tr>
 		<tr>
@@ -108,6 +108,12 @@ Impulsion will register itself as an AMD module if it's available.
 			<td><code>Boolean</code></td>
 			<td><code>true</code></td>
 			<td>Whether to stretch and rebound values when pulled outside the bounds.</td>
+		</tr>
+		<tr>
+			<th scope="row" align="left"><code>window</code></th>
+			<td><code>HTMLElement</code></td>
+			<td><code>window</code></td>
+			<td>Specificy the root <code>window</code> element, only really needed when trying to applied Impulsion to child iframes.</td>
 		</tr>
 		<tr>
 			<th scope="row" align="left"><code>addIosTouchmoveFix</code></th>

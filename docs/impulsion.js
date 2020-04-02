@@ -39,7 +39,7 @@
 
   var Impulsion = function Impulsion(_ref) {
     var _ref$source = _ref.source,
-        sourceEl = _ref$source === void 0 ? document : _ref$source,
+        sourceEl = _ref$source === void 0 ? window : _ref$source,
         updateCallbackDeprecated = _ref.update,
         updateCallback = _ref.onUpdate,
         startCallback = _ref.onStart,
@@ -54,6 +54,8 @@
         boundY = _ref.boundY,
         _ref$bounce = _ref.bounce,
         bounce = _ref$bounce === void 0 ? true : _ref$bounce,
+        _ref$window = _ref.window,
+        win = _ref$window === void 0 ? window : _ref$window,
         _ref$addIosTouchmoveF = _ref.addIosTouchmoveFix,
         addIosTouchmoveFix = _ref$addIosTouchmoveF === void 0 ? true : _ref$addIosTouchmoveF;
 
@@ -72,14 +74,14 @@
     var trackingPoints = [];
 
     if (addIosTouchmoveFix && !iosNoopTouchmoveAdded) {
-      window.addEventListener('touchmove', function () {}, passiveSupported ? {
+      win.addEventListener('touchmove', function () {}, passiveSupported ? {
         passive: false
       } : false);
       iosNoopTouchmoveAdded = true;
     }
 
     (function init() {
-      sourceEl = typeof sourceEl === 'string' ? document.querySelector(sourceEl) : sourceEl;
+      sourceEl = typeof sourceEl === 'string' ? win.querySelector(sourceEl) : sourceEl;
 
       if (!sourceEl) {
         throw new Error('IMPETUS: source not found.');
@@ -171,38 +173,38 @@
     };
 
     function cleanUpRuntimeEvents() {
-      document.removeEventListener('touchmove', onMove, passiveSupported ? {
+      win.removeEventListener('touchmove', onMove, passiveSupported ? {
         passive: false
       } : false);
-      document.removeEventListener('touchend', onUp, passiveSupported ? {
+      win.removeEventListener('touchend', onUp, passiveSupported ? {
         passive: true
       } : false);
-      document.removeEventListener('touchcancel', stopTracking, passiveSupported ? {
+      win.removeEventListener('touchcancel', stopTracking, passiveSupported ? {
         passive: true
       } : false);
-      document.removeEventListener('mousemove', onMove, passiveSupported ? {
+      win.removeEventListener('mousemove', onMove, passiveSupported ? {
         passive: false
       } : false);
-      document.removeEventListener('mouseup', onUp, passiveSupported ? {
+      win.removeEventListener('mouseup', onUp, passiveSupported ? {
         passive: true
       } : false);
     }
 
     function addRuntimeEvents() {
       cleanUpRuntimeEvents();
-      document.addEventListener('touchmove', onMove, passiveSupported ? {
+      win.addEventListener('touchmove', onMove, passiveSupported ? {
         passive: false
       } : false);
-      document.addEventListener('touchend', onUp, passiveSupported ? {
+      win.addEventListener('touchend', onUp, passiveSupported ? {
         passive: true
       } : false);
-      document.addEventListener('touchcancel', stopTracking, passiveSupported ? {
+      win.addEventListener('touchcancel', stopTracking, passiveSupported ? {
         passive: true
       } : false);
-      document.addEventListener('mousemove', onMove, passiveSupported ? {
+      win.addEventListener('mousemove', onMove, passiveSupported ? {
         passive: false
       } : false);
-      document.addEventListener('mouseup', onUp, passiveSupported ? {
+      win.addEventListener('mouseup', onUp, passiveSupported ? {
         passive: true
       } : false);
     }

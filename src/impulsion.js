@@ -37,7 +37,7 @@ let iosNoopTouchmoveAdded = false;
 
 export default class Impulsion {
 	constructor({
-		source: sourceEl = document,
+		source: sourceEl = window,
 		update: updateCallbackDeprecated,
 		onUpdate: updateCallback,
 		onStart: startCallback,
@@ -49,6 +49,7 @@ export default class Impulsion {
 		boundX,
 		boundY,
 		bounce = true,
+		window: win = window,
 		addIosTouchmoveFix = true,
 	}) {
 		let boundXmin,
@@ -76,7 +77,7 @@ export default class Impulsion {
 		if (addIosTouchmoveFix && !iosNoopTouchmoveAdded) {
 			// fixes weird safari 10 bug where preventDefault is prevented
 			// @see https://github.com/metafizzy/flickity/issues/457#issuecomment-254501356
-			window.addEventListener('touchmove', function() {}, passiveSupported ? { passive: false } : false);
+			win.addEventListener('touchmove', function() {}, passiveSupported ? { passive: false } : false);
 
 			iosNoopTouchmoveAdded = true;
 		}
@@ -85,7 +86,7 @@ export default class Impulsion {
 		 * Initialize instance
 		 */
 		(function init() {
-			sourceEl = typeof sourceEl === 'string' ? document.querySelector(sourceEl) : sourceEl;
+			sourceEl = typeof sourceEl === 'string' ? win.querySelector(sourceEl) : sourceEl;
 			if (!sourceEl) {
 				throw new Error('IMPETUS: source not found.');
 			}
@@ -211,11 +212,11 @@ export default class Impulsion {
 		 */
 		function cleanUpRuntimeEvents() {
 			// Remove all touch events added during 'onDown' as well.
-			document.removeEventListener('touchmove', onMove, passiveSupported ? { passive: false } : false);
-			document.removeEventListener('touchend', onUp, passiveSupported ? { passive: true } : false);
-			document.removeEventListener('touchcancel', stopTracking, passiveSupported ? { passive: true } : false);
-			document.removeEventListener('mousemove', onMove, passiveSupported ? { passive: false } : false);
-			document.removeEventListener('mouseup', onUp, passiveSupported ? { passive: true } : false);
+			win.removeEventListener('touchmove', onMove, passiveSupported ? { passive: false } : false);
+			win.removeEventListener('touchend', onUp, passiveSupported ? { passive: true } : false);
+			win.removeEventListener('touchcancel', stopTracking, passiveSupported ? { passive: true } : false);
+			win.removeEventListener('mousemove', onMove, passiveSupported ? { passive: false } : false);
+			win.removeEventListener('mouseup', onUp, passiveSupported ? { passive: true } : false);
 		}
 
 		/**
@@ -225,11 +226,11 @@ export default class Impulsion {
 			cleanUpRuntimeEvents();
 
 			// @see https://developers.google.com/web/updates/2017/01/scrolling-intervention
-			document.addEventListener('touchmove', onMove, passiveSupported ? { passive: false } : false);
-			document.addEventListener('touchend', onUp, passiveSupported ? { passive: true } : false);
-			document.addEventListener('touchcancel', stopTracking, passiveSupported ? { passive: true } : false);
-			document.addEventListener('mousemove', onMove, passiveSupported ? { passive: false } : false);
-			document.addEventListener('mouseup', onUp, passiveSupported ? { passive: true } : false);
+			win.addEventListener('touchmove', onMove, passiveSupported ? { passive: false } : false);
+			win.addEventListener('touchend', onUp, passiveSupported ? { passive: true } : false);
+			win.addEventListener('touchcancel', stopTracking, passiveSupported ? { passive: true } : false);
+			win.addEventListener('mousemove', onMove, passiveSupported ? { passive: false } : false);
+			win.addEventListener('mouseup', onUp, passiveSupported ? { passive: true } : false);
 		}
 
 		/**
