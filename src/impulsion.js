@@ -154,6 +154,15 @@ export default class Impulsion {
 		};
 
 		/**
+		 * Force a call of `callUpdateCallback`. Useful
+		 * if you want the update the environment immediately after calling `this.setValues()`. 
+		 * @public
+		 */
+		this.forceUpdate = function() {
+			callUpdateCallback();
+		};
+
+		/**
 		 * Update the current or previous x and y values
 		 * @public
 		 * @param {Number} x
