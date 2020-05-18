@@ -151,6 +151,10 @@ Impulsion will register itself as an AMD module if it's available.
 			<td>Re-enable movement processing.</td>
 		</tr>
 		<tr>
+			<th scope="row" align="left"><code>.forceUpdate()</code></th>
+			<td>Call the <code>onUpdate</code> function manually. Can be used to update the scene after <code>setValues()</code> has been run.</td>
+		</tr>
+		<tr>
 			<th scope="row" align="left"><code>.setMultiplier( &lt;number&gt; )</code></th>
 			<td>Adjust the <var>multiplier</var> in flight.</td>
 		</tr>
