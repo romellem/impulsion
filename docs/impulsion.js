@@ -158,6 +158,10 @@
       paused = false;
     };
 
+    this.forceUpdate = function () {
+      callUpdateCallback();
+    };
+
     this.setValues = function (x, y, previousX, previousY) {
       var n = 'number';
 
