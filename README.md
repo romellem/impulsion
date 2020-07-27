@@ -60,27 +60,27 @@ Impulsion will register itself as an AMD module if it's available.
 		</tr>
 		<tr>
 			<th scope="row" align="left"><code>onStart</code></th>
-			<td><code>function(x, y)</code></td>
+			<td><code>function(x, y, px, py)</code></td>
 			<td>-</td>
-			<td>This function will be called when starting to drag the element</td>
+			<td>This function will be called when starting to drag the element. <var>px</var> and <var>py</var> are the <em>previous</em> x and y values.</td>
 		</tr>
 		<tr>
 			<th scope="row" align="left"><code>onUpdate</code> (required)</th>
-			<td><code>function(x, y)</code></td>
+			<td><code>function(x, y, px, py)</code></td>
 			<td>-</td>
-			<td>This function will be called with the updated <var>x</var> and <var>y</var> values.</td>
+			<td>This function will be called with the updated <var>x</var> and <var>y</var> values. <var>px</var> and <var>py</var> are the <em>previous</em> x and y values.</td>
 		</tr>
 		<tr>
 			<th scope="row" align="left"><code>onStartDecelerating</code></th>
-			<td><code>function(x, y)</code></td>
+			<td><code>function(x, y, px, py)</code></td>
 			<td>-</td>
-			<td>This function will be called when the deceleration begun (and drag has ended)</td>
+			<td>This function will be called when the deceleration begun (and drag has ended). <var>px</var> and <var>py</var> are the <em>previous</em> x and y values.</td>
 		</tr>
 		<tr>
 			<th scope="row" align="left"><code>onEndDecelerating</code></th>
-			<td><code>function(x, y)</code></td>
+			<td><code>function(x, y, px, py)</code></td>
 			<td>-</td>
-			<td>This function will be called when the deceleration has ended</td>
+			<td>This function will be called when the deceleration has ended. <var>px</var> and <var>py</var> are the <em>previous</em> x and y values.</td>
 		</tr>
 		<tr>
 			<th scope="row" align="left"><code>multiplier</code></th>
