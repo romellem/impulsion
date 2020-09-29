@@ -122,7 +122,7 @@ Impulsion will register itself as an AMD module if it's available.
 			<th scope="row" align="left"><code>window</code></th>
 			<td><code>HTMLElement</code></td>
 			<td><code>window</code></td>
-			<td>Specificy the root <code>window</code> element, only really needed when trying to applied Impulsion to child iframes.</td>
+			<td>Specify the root <code>window</code> element, only really needed when trying to applied Impulsion to child iframes.</td>
 		</tr>
 		<tr>
 			<th scope="row" align="left"><code>addIosTouchmoveFix</code></th>
