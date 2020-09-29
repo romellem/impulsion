@@ -1,6 +1,6 @@
 import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
-import babel from 'rollup-plugin-babel';
+import babel from '@rollup/plugin-babel';
 import { terser } from 'rollup-plugin-terser';
 import filesize from 'rollup-plugin-filesize';
 
@@ -16,7 +16,7 @@ const makeRollupConfig = (globalObjectName, inputFile, outputFile) => {
 		plugins: [
 			resolve(),
 			commonjs(),
-			babel(),
+			babel({ babelHelpers: 'bundled' }),
 		],
 	};
 
