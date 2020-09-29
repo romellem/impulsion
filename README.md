@@ -1,5 +1,7 @@
 # Impulsion.js
 
+[![npm version](https://badge.fury.io/js/impulsion.svg)](https://badge.fury.io/js/impulsion)
+
 > Fork of the excellent [impetus.js](https://github.com/chrisbateman/impetus) by Chris Bateman.
 >
 > Adds new features such as:
